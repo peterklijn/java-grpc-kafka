@@ -1,5 +1,6 @@
 package com.peterklijn.service.server;
 
+import com.peterklijn.service.server.producers.KafkaProducerManager;
 import com.peterklijn.service.server.resources.ThingResource;
 
 import io.dropwizard.Application;
@@ -16,8 +17,10 @@ public class ServerService extends Application<ServerServiceConfiguration> {
   }
 
   public void run(final ServerServiceConfiguration config, final Environment environment) throws Exception {
-    System.out.println("run!");
-    environment.jersey().register(new ThingResource());
+    final KafkaProducerManager kafkaManager = new KafkaProducerManager(config.kafka);
+    environment.lifecycle().manage(kafkaManager);
+
+    environment.jersey().register(new ThingResource(kafkaManager));
   }
 
   public static void main(final String[] args) throws Exception {

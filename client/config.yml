@@ -1,1 +1,8 @@
 kafka: 127.0.0.1:9092
+server:
+  application_connectors:
+  - type: http
+    port: 9090
+  admin_connectors:
+  - type: http
+    port: 9091
