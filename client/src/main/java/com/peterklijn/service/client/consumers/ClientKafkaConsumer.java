@@ -48,6 +48,7 @@ public class ClientKafkaConsumer implements Runnable {
     StreamSupport.stream(records.spliterator(), false).forEach(record -> {
       System.out.println("RECORD: " + record.key() + " value: " + record.value());
     });
+    kafkaConsumer.commitSync();
   }
 
 
