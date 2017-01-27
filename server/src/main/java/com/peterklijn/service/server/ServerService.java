@@ -1,5 +1,7 @@
 package com.peterklijn.service.server;
 
+import com.peterklijn.service.server.resources.ThingResource;
+
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -15,10 +17,11 @@ public class ServerService extends Application<ServerServiceConfiguration> {
 
   public void run(final ServerServiceConfiguration config, final Environment environment) throws Exception {
     System.out.println("run!");
+    environment.jersey().register(new ThingResource());
   }
 
   public static void main(final String[] args) throws Exception {
-    new ServerService() .run(args);
+    new ServerService().run(args);
   }
 
 }
